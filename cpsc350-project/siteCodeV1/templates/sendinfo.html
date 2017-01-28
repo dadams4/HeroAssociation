@@ -1,0 +1,148 @@
+
+<!---{% block content %}
+
+{% endblock %}-->
+<! DOCTYPE html>
+<html lang="en">
+<head>
+
+	<title>"If you open your heart to patriotism, there is no room for predjudice"</title>
+<!--
+
+Template 2083 Steak House
+
+http://www.tooplate.com/view/2083-steak-house
+
+-->
+  	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="">
+  	<meta name="description" content="">
+
+	<!-- stylesheets css -->
+	<link rel="stylesheet" href="static/css/bootstrap.min.css">
+
+  	<link rel="stylesheet" href="static/css/magnific-popup.css">
+
+	<link rel="stylesheet" href="static/css/animate.min.css">
+	<link rel="stylesheet" href="static/css/font-awesome.min.css">
+
+  	<link rel="stylesheet" href="static/css/nivo-lightbox.css">
+  	<link rel="stylesheet" href="static/css/nivo_themes/default/default.css">
+
+  	<link rel="stylesheet" href="static/css/hover-min.css">
+  	<link rel="stylesheet" href="static/css/flexslider.css">
+
+	<link rel="stylesheet" href="static/css/style.css">
+
+  	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+  	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600' rel='stylesheet' type='text/css'>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!---
+<button>Regular Button</button>
+<button class="btn btn-primary">Primary Button</button>
+<button class="btn btn-info">Info Button</button>
+<button class="btn btn-success">Success Button</button>
+<button class="btn btn-warning">Warning Button</button>
+<button class="btn btn-danger">Danger Button</button>
+--->
+</head>
+<body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+
+<!-- Preloader section -->
+<div class="preloader">
+	<div class="sk-spinner sk-spinner-pulse"></div>
+</div>
+
+<section id="home" class="parallax-section">
+  <div class="gradient-overlay"></div>
+    <div class="container">
+      <div class="row">
+
+          <div class="col-md-offset-2 col-md-8 col-sm-12">
+              <h1 class="wow fadeInUp" data-wow-delay="0.6s">Thanks for submitting {{yourName}}!</h1>
+                 <p class="wow fadeInUp" data-wow-delay="1.0s"></p>
+              <a href="https://cpsc350-dadams4.c9users.io/" class="wow fadeInUp btn btn-default hvr-bounce-to-top smoothScroll" data-wow-delay="1.3s">Return to Home</a>
+          </div>
+
+      </div>
+    </div>
+
+</div>
+
+<!---</section>
+<section id="home" class = "parallax-section">
+    <div class="gradient-overlay"></div>
+    <div class="container">
+      <div class="row">
+<div class="col-md-offset-2 col-md-8 col-sm-12">
+            {% for name in names %}
+              <h1 class="wow fadeInUp" data-wow-delay="0.6s"> Visitor {{name}}</h1>
+                 <p class="wow fadeInUp" data-wow-delay="1.0s"></p>
+            {% endfor %}
+            {% for message in messages %}
+            <h1 class="wow fadeInUp" data-wow-delay="0.6s"> Message {{message}}</h1>
+                 <p class="wow fadeInUp" data-wow-delay="1.0s"></p>
+            {% endfor %}
+            {% for date in dates %}
+            <h1 class="wow fadeInUp" data-wow-delay="0.6s"> Day of Visit: {{date}}</h1>
+                 <p class="wow fadeInUp" data-wow-delay="1.0s"></p>
+            {% endfor %}
+</div>
+ </div>
+
+      </div>
+    </div>
+</section>
+--->
+<section id="home" class = "parallax-section">
+    <div class="gradient-overlay"></div>
+    <div class="container">
+      <div class="row">
+<div class="col-md-offset-2 col-md-8 col-sm-12">
+<h1 class="wow fadeInUp" data-wow-delay="0.6s">Wall of Messages</h1>
+<table class = "table">
+  <tr>
+     <th>Visitor Name</th>
+     <th>Day of Visit</th>
+     <th>Message</th>
+  </tr>
+  {% for post in posts %}
+  <tr>
+      <td>{{post.name}}</td>
+      <td>{{post.date}}</td>
+      <td>{{post.message}}</td>
+  </tr>
+ {% endfor %}
+</table>
+</div>
+ </div>
+
+      </div>
+    </div>
+    </section>
+<script src="static/js/jquery.js"></script>
+<script src="static/js/bootstrap.min.js"></script>
+
+<script src="static/js/jquery.magnific-popup.min.js"></script>
+
+<script src="static/js/jquery.sticky.js"></script>
+<script src="static/js/jquery.backstretch.min.js"></script>
+
+<script src="static/js/isotope.js"></script>
+<script src="static/js/imagesloaded.min.js"></script>
+<script src="static/js/nivo-lightbox.min.js"></script>
+
+<script src="static/js/jquery.flexslider-min.js"></script>
+
+<script src="static/js/jquery.parallax.js"></script>
+<script src="static/js/smoothscroll.js"></script>
+<script src="static/js/wow.min.js"></script>
+
+<script src="static/js/custom.js"></script>
