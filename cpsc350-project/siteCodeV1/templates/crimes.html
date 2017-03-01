@@ -9,9 +9,13 @@
 	<title>"If you open your heart to patriotism, there is no room for predjudice"</title>
 <!--
 
-Code for displaying an error page
+Template 2083 Steak House
+
+http://www.tooplate.com/view/2083-steak-house
 
 -->
+</head>
+<body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
   	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,31 +46,56 @@ Code for displaying an error page
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-</head>
-<body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
-
-<!-- Preloader section -->
-<div class="preloader">
-	<div class="sk-spinner sk-spinner-pulse"></div>
-</div>
-
-<section id="home" class="parallax-section">
-  <div class="gradient-overlay"></div>
+<section id="home" class = "parallax-section">
+    <div class="gradient-overlay"></div>
     <div class="container">
       <div class="row">
-
-          <div class="col-md-offset-2 col-md-8 col-sm-12">
-              <h1 class="wow fadeInUp" data-wow-delay="0.6s">Oops. You made a mistake</h1>
-                 <p class="wow fadeInUp" data-wow-delay="1.0s"></p>
-                 <a href = "/#login" class = "wow fadeInUp btn btn-default hvr-bounce-to-top smoothScroll" data-wow-delay="1.3s">Return to Login</a>
-              <a href="/" class="wow fadeInUp btn btn-default hvr-bounce-to-top smoothScroll" data-wow-delay="1.3s">Return to Home</a>
-          </div>
+<div class="col-md-offset-2 col-md-8 col-sm-12">
+<h1 class="wow fadeInUp" data-wow-delay="0.6s">{{crime}}s in your Area</h1>
+<!---
+<a href="https://cpsc350-dadams4.c9users.io/" class="wow fadeInUp btn btn-default hvr-bounce-to-top smoothScroll" data-wow-delay="1.3s">Return to Home</a>
+--->
+<a href="https://cpsc350-dadams4.c9users.io/" class="wow fadeInUp btn btn-default hvr-bounce-to-top smoothScroll" data-wow-delay="1.3s">Return to Home</a>
+<table class = "table">
+  <tr>
+      <th>Criminal Name</th>
+     <th>Crime Type</th>
+     <th>Perpetrator Count</th>
+     <th>Date of Crime</th>
+     <th>Estimated Casualties</th>
+     <th>Threat Level</th>
+     <th>Location</th>
+  </tr>
+  {% for post in posts %}
+  <tr>
+      <!---
+      <td>{{post['name']}}</td>
+      <td>{{post['date']}}</td>
+      <td>{{post['age']}}</td>
+      <td>{{post['message']}}</td>
+      
+      
+      <td>{{post[0]}}</td> 
+     --->
+     <td>{{post[4]}}</td>
+     <td>{{post[0]}}</td>
+      <td>{{post[1]}}</td>
+      <td>{{post[2]}}</td>
+      <td>{{post[3]}}</td>
+      <td>{{post[5]}}</td>
+      <td>{{post[6]}}</td>
+      
+  </tr>
+ {% endfor %}
+</table>
+</div>
+ </div>
 
       </div>
     </div>
-
-</div>
-<script src="static/js/jquery.js"></script>
+    </section>
+    
+    <script src="static/js/jquery.js"></script>
 <script src="static/js/bootstrap.min.js"></script>
 
 <script src="static/js/jquery.magnific-popup.min.js"></script>

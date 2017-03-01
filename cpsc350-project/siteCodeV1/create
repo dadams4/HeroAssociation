@@ -1,0 +1,233 @@
+CREATE DATABASE test_db
+\list
+CREATE DATABASE test_db;
+CREATE DATABASE test;
+\list
+\c test
+CREATE TABLE people_info;
+CREATE TABLE people (
+firstname VARCHAR(35)
+food VARCHAR(35)
+age int(3)
+dob DATE);
+CREATE TABLE people (
+firstname VARCHAR(35),
+age INT(3),
+dob DATE);
+CREATE TABLE people (
+firstname VARCHAR(35),
+age INT,
+dob DATE);
+\d
+\d people
+\q
+\i cpsc350-project/siteCodeV1/msgboard.sql 
+\i cpsc350-project/siteCodeV1/msgboard.sql 
+)
+\q
+\l
+CREATE DATABASE siteinfo
+\c siteinfo
+\l
+CREATE DATABASE siteinfo
+CREATE DATABASE siteinfo;
+CREATE DATABASE sitinfo;
+DROP DATABASE sitinfo;
+CREATE DATABASE siteinfo;
+\c siteinfo
+CREATE TABLE people(name VARCHAR(35) NOT NULL, day DATE DEFAULT GETDATE(), message BLOB DEFAULT 'Cool site!');
+CREATE TABLE people(name VARCHAR(35) NOT NULL, day DATE DEFAULT GETDATE(), age INT NOT NULL, message VARCHAR(100) DEFAULT 'Cool site!');
+CREATE TABLE people(name VARCHAR(35) NOT NULL, day DATE NOT NULL, age INT NOT NULL, message VARCHAR(100) DEFAULT 'Cool site!');
+\l
+\list
+SELECT * FROM siteinfo
+show tables
+show tables;
+create role manager with login;
+\d
+grant all on people to manager;
+\password manager
+\z
+\q
+\c people
+\l
+\c siteinfo
+\z
+\l
+DESCRIBE people
+\list
+DESCRIBE people;
+SHOW TABLES
+SHOW TABLES;
+DESC people;
+desc people
+\l
+\z
+\c public
+exec public
+exec public;
+exec sp_help 'public';
+clear
+\q
+\c siteinfo
+\d+ people
+INSERT into people VALUES ('Daniel Adams', '2017-01-28', '21', 'I am the creator of this website!');
+\people
+\d+ people
+SELECT * FROM people
+SELECT * FROM people;
+\x
+\z
+\x
+\z
+\list people
+\d people
+SELECT * FROM people
+SELECT * FROM people;
+\d+ people
+\q
+\c siteinfo
+\q
+\i cpsc350-project/siteCodeV1/msgboard.sql 
+\q
+\i cpsc350-project/siteCodeV1/msgboard.sql 
+\d+
+\d+ public
+\d public
+\d messageboard
+SELECT * from messageboard
+SELECT * from messageboard;
+\q
+\i cpsc350-project/siteCodeV1/msgboard.sql 
+\q
+\i cpsc350-project/siteCodeV1/msgboard.sql 
+\q
+\i cpsc350-project/siteCodeV1/msgboard.sql 
+\d messageboard
+SELECT * FROM messageboard
+SELECT * FROM messageboard;
+\messageboard
+\d
+create role manager with login:
+create role manager with login;
+\c messageboard
+create role manager with login;
+\z
+remove role manager 
+remove role manager;
+drop role manager;
+create role manager with login;
+grants all on messageboard_id_seq to manager;
+grant all on messagerboard_id_seq to manager;
+grant all on messageboard_iq_seq to manager;
+grant all on messageboard_id_seq to manager;
+grant all on messageboard to manager;
+\q
+\c siteinfo
+\z
+\q
+\c siteinfo
+select name from messageboard;
+select * from messageboard;
+\password manager
+\q
+\c siteinfo
+select * from messageboard;
+\q
+\c siteinfo
+select * from messageboard;
+\d
+\d messageboard
+\q
+\i cpsc350-project/siteCodeV1/msgboard.sql 
+select * from messageboard
+;
+\d messageboard
+\q
+\c siteinfo
+select * from messageboard
+;
+\q
+\q
+\c siteinfo
+select * from messageboard
+;
+\d
+\d+
+\z
+grant all on messageboard_iq_seq manager;
+;
+grant all on messageboard_id_seq to manager;
+grant all on messageboard to manager;
+\password manager
+\d+
+\q
+\c siteinfo
+\d+
+\z 
+\q
+\c siteinfo
+select * from messageboard
+;
+\q
+\c siteinfo
+\l
+\z
+select * from messageboard;
+select day from messageboard;
+\q
+\l
+\c siteinfo
+select * from messageboard
+;
+\z messageboard
+\z
+delete from messageboard where name=Bill Gates;
+delete from messageboard where name='Bill Gates';
+select * from messageboard
+;
+delete from messageboard_iq_seq where name='Bill Gates';
+delete from messageboard_id_seq where name='Bill Gates';
+select * from messageboard;
+select * from messageboard_id_sql;
+select * from messageboard_id_seq;
+insert into messageboard (name, day, age, message) values ('Bill Gates', '2017-02-01', 65, 'Cool site!');
+select * from messageboard;
+\q
+\c siteinfo
+\z
+\d+ messageboard
+\q
+\c siteinfo
+\z
+select * from messageboard;
+\q
+\c siteinfo
+select name from messageboard where name like 'A%' or like 'B%';
+select name from messageboard where name like 'A%' OR name LIKE 'B%';
+\q
+\i section1.sql
+;
+\i section1.sql
+\q
+\i section1.sql
+\q
+\i section1.sql
+\q
+\i section1.sql
+\q
+\i section1.sql
+\q
+\i section2.sql
+\i section2.sql
+\q
+\c siteinfo
+show create table messageboard;
+show CREATE TABLE messageboard;
+SHOW CREATE TABLE messageboard;
+SHOW CREATE TABLE messageboard
+;
+\s messageboard
+s create table messageboard;
+showcreate table messageboard;
+\s create table messageboard;
