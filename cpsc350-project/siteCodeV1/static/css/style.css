@@ -68,6 +68,7 @@ p {
   font-size: 18px;
   letter-spacing: 0.8px;
   line-height: 28px;
+  color: #000;
 }
 
 a {
@@ -364,7 +365,7 @@ a:focus {
 #search input {height: 45px;}
 
 #search input[type='submit'] {
-  background: #ffffff;
+  background: transparent;
   border-radius: 4px;
   color: #037224;
   font-size: 20px;
@@ -377,7 +378,7 @@ a:focus {
 #search input[type='submit']:hover {
   background-color: #037224;
   border-color: transparent;
-  color: #ffffff;
+  color: #0000000;
 }
 
 /* About section  */

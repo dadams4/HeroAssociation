@@ -1,16 +1,192 @@
 import os
+import uuid
 #import psycopg2
 #import psycopg2.extras
-from flask import Flask, redirect, render_template, request, session
+from flask import Flask, redirect, render_template, request, session, jsonify
+from flask_socketio import SocketIO, emit, join_room, leave_room
 
 from lib.config import*
 from lib import postgresql_data as pg
 
 app = Flask(__name__)
+#app = Flask(__name__, static_url_path='')
+
 app.secret_key = os.urandom(24).encode('hex')
 
-wallPosts = [{'name': 'Andrew Jackson', 'date': '2017-01-27', 'message': 'I was the 7th President of the United States',
-			'email': 'POTUS7@us.gov'}]
+#-------------------Begin Chat stuff----------------------------------# 
+#Chat stuff 
+socketio = SocketIO(app)
+
+messages = [{'text': 'Welcome to the chat!', 'name': 'Welcome Bot', 'room': 'Lobby'}]
+            # {'text': 'IRC is better', 'name': 'DanBot'}]
+
+users = {}
+rooms = ['Lobby']
+
+
+
+#Getting a list of the currently connected users
+def updateList():
+    
+    usernames = []
+    
+    for user in users:
+        
+        #Checking if the user provided a name
+        if len(users[user]['username']) == 0:
+            usernames.append('Lurker')
+        else:
+            usernames.append(users[user]['username'])
+    
+    socketio.emit('list', usernames)
+    
+#Looking at the rooms    
+def updateRooms():
+    
+    socketio.emit('rooms', rooms)
+    #for room in rooms:
+    #    print(room)
+    
+#Joining the chat room
+@socketio.on('join')#, namespace='/iss')
+def on_join(room):
+    
+    leave_room(users[session['uuid']]['room'])
+    
+    print('Leaving room ' + users[session['uuid']]['room'])
+    
+    join_room(room)
+    
+    users[session['uuid']]['room'] = room
+
+    print(users[session['uuid']]['username'] + " Joined room" + room)
+    
+    
+    """
+    #Old chat staff here
+    
+    
+    session['uuid'] = uuid.uuid1()
+    session['username'] = 'New User'
+    print('connected')
+    users[session['uuid']] = {'username': 'New User'}
+    
+    for message in messages:
+        print(message)
+        emit('message', message)
+    """
+
+#Leave the chat
+#@socketio.on('leave')#, namespace ='/iss')
+#def on_leave():
+#    if session['uuid'] in users:
+ #       del users[session['uuid']]
+ #       updateList()
+
+
+#Adding messages to the webpage
+@socketio.on('message')#, namespace='/iss')
+def new_message(message):
+    
+    tmp = {'text': message['text'], 'room': message['room'], 'name': users[session['uuid']]['username']}
+    print(tmp)
+    messages.append(tmp)
+    #print("Emitting to room " + message['room'])
+   # for message in messages:
+       # print("This is a message "+message)
+    emit('message', tmp, room = message['room'])
+
+#Handling user input
+@socketio.on('identify')#, namespace='/iss')
+def identify(message):
+    
+    #Checking to see if this particular computer has logged in
+    if 'uuid' in session:
+        users[session['uuid']]['username'] = message;
+    
+        print("identify " + users[session['uuid']]['username'])
+    
+        updateList()
+    else:
+        print('New user inc.')
+        session['uuid'] = uuid.uuid1()
+        users[session['uuid']] = {'username': 'New Chatter', 'room': 'Lobby'}
+        join_room('Lobby')
+        session['username'] = 'default'
+        
+        
+        updateList()
+        updateRooms()
+        
+    
+#Create new room
+@app.route('/new_room', methods=['Post'])
+def create_room():
+    rooms.append(request.get_json()['name'])
+    print('updating rooms')
+    updateRooms()
+    return jsonify(success = "ok")
+
+@socketio.on('disconnect')
+def on_disconnect():
+    if session['uuid'] in users:
+        del users[session['uuid']]
+        updateList()
+"""
+socketio = SocketIO(app)
+
+messages = [{'text': 'test', 'name': 'DanBot'},
+             {'text': 'IRC is better', 'name': 'DanBot'}]
+
+users = {}
+
+#connecting to socket
+@socketio.on('connect', namespace='/iss')
+def makeConnection():
+    session['uuid'] = uuid.uuid1()
+    session['username'] = 'New User'
+    print('connected')
+    users[session['uuid']] = {'username': 'New User'}
+    
+    for message in messages:
+        print(message)
+        emit('message', message)
+
+#Adding messages to the webpage
+@socketio.on('message', namespace='/iss')
+def new_message(message):
+    
+    tmp = {'text': message, 'name': users[session['uuid']]['username']}
+    print(tmp)
+    messages.append(tmp)
+    emit('message', tmp, broadcast=True)
+
+#Handling user input
+@socketio.on('identify', namespace='/iss')
+def identify(message):
+    print('identify ' + message)
+    users[session['uuid']] = {'username': message}
+    
+    
+    
+#Join a room
+@socketio.on('join')
+def on_join(data):
+	username = users[session['uuid']]
+	room = data['room']
+	join_room(room)
+	emit(username + ' has entered the room.', room=room)
+	
+#Leave a room
+@socketio.on('leave')
+def on_leave(data):
+	username = users[session['uuid']]
+	room = data['room']
+	leave_room(room)
+	emit(username + ' has left the room.', room=room)
+	"""
+#------------------------End Chat Stuff------------------------------------------#			
+
 logged = ''
 loggedin = False
 @app.route('/', methods = ['GET', 'POST'])
@@ -28,7 +204,7 @@ def mainIndex():
 	myVideos = [{'title': 'Judge Morty: State of Georgia Vs. Rick Allen(WARNING: BAD LANGUAGE', 'link': 'WTWdP5DMdsM','description': 'A real courtcase reenacted by Rick and Morty(WARNING: BAD LANGUAGE)'},
 	          {'title': 'Star Wars but every time someone shoots a laser it speeds up', 'link': 'wIIoMaidXq0', 'description': 'I needed a second video and this was suggested on the YouTube homepage'}]
 	return render_template('index.html', week = theWeek, site = weeklySite, working = isWorking, videos = myVideos, logged = user)
-
+	
 
 @app.route('/login', methods = ['GET', 'POST'])
 def createUser():
@@ -131,9 +307,17 @@ def searchcrimes():
 	results = pg.get_crimes(session['userName'], request.form['crimetype'])
 	
 	return render_template('crimes.html', posts=results, logged=user, crime = crimes)
+	
+#Chat Room	
+@app.route('/chat', methods = ['GET', 'POST'])
+def getchat():
+	 print("working")
+	 return app.send_static_file('chat.html')
+	 
 # start the server
 if __name__ == '__main__':
     
     #app.debug=True
     #app.run(host='0.0.0.0', port=8080)
-    app.run(host=os.getenv('IP', '0.0.0.0'), port =int(os.getenv('PORT', 8080)), debug=True)
+    #app.run(host=os.getenv('IP', '0.0.0.0'), port =int(os.getenv('PORT', 8080)), debug=True)
+    socketio.run(app, host=os.getenv('IP', '0.0.0.0'), port =int(os.getenv('PORT', 8080)), debug=True)
