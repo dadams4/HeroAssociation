@@ -82,6 +82,14 @@ ISSChatApp.controller('ChatController', function($scope)
         
     };
     
+    /* Searching for a specific user */
+    $scope.searchmsgs = function searchmsgs()
+    {
+        console.log('Searching for ', $scope.finduser);
+        socket.emit('search', $scope.finduser);
+    };
+    
+    
     /* Creating a new chatroom */ 
     $scope.createRoom = function()
     {

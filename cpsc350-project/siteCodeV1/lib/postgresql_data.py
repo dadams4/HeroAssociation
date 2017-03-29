@@ -117,6 +117,50 @@ def get_messageboard():
 	conn.close()
 	return results
 
+#Display the contents of the messageboard
+def get_chat():
+
+	conn = connectToPSQLDB()
+	if conn == None:
+		return None
+	query_string = "select * from chat"
+	results = queryDB(query_string, conn)
+	conn.close()
+	return results
+
+#Query the database to add a chat message
+def add_chatmessage(text, room, name):
+	conn = connectToPSQLDB()
+	if conn == None:
+		return None
+		
+		
+	#Checking if the username has been taken
+	#user_string = "select username from users where username like %s"
+	#queryDB(user_string, conn, select = False, args = (name))
+	
+	
+	#If the username was not taken, go ahead and like insert it or shit
+	query_string = "insert into chat (text, room, name) VALUES (%s, %s, %s);"
+	queryDB(query_string, conn, select = False, args = (text, room, name))
+	
+	conn.close()
+	return 0
+	
+#Query the database to get specific username searched	
+def get_specificChats(username):
+	
+	conn = connectToPSQLDB()
+	if conn == None:
+		return None
+		
+	query_string = "select * from chat where name = %s"
+	print(query_string)
+	
+	results = queryDB(query_string, conn, args = (username, ))
+	print(results)
+	conn.close()
+	return results	
 #Display crimes based on location
 def get_crimes(username, crime):
 	

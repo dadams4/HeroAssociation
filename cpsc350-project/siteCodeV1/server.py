@@ -19,6 +19,8 @@ socketio = SocketIO(app)
 
 messages = [{'text': 'Welcome to the chat!', 'name': 'Welcome Bot', 'room': 'Lobby'}]
             # {'text': 'IRC is better', 'name': 'DanBot'}]
+searchedmessages = [{'text': 'Welcome to the chat!', 'name': 'Welcome Bot', 'room': 'Lobby'}]
+
 
 users = {}
 rooms = ['Lobby']
@@ -51,38 +53,51 @@ def updateRooms():
 @socketio.on('join')#, namespace='/iss')
 def on_join(room):
     
-    leave_room(users[session['uuid']]['room'])
     
-    print('Leaving room ' + users[session['uuid']]['room'])
+	leave_room(users[session['uuid']]['room'])
     
-    join_room(room)
+	print('Leaving room ' + users[session['uuid']]['room'])
     
-    users[session['uuid']]['room'] = room
+	join_room(room)
+    
+	users[session['uuid']]['room'] = room
+    
+	print(users[session['uuid']]['username'] + " Joined room" + room)
+    
+    #Getting the messages from the DB
+	results = pg.get_chat()
+	
+	for result in results:
+		
+		tmp = {'text': result[0], 'room': result[1], 'name': result[2] }
+		
+		messages.append("{'text': " + "'" + result[0] + "'" + ", 'name': " + "'" + result[1] + "'" + ", 'room': " + "'" + result[2] + "'" + "}")
+		
+		#for message in messages:
+		#	print (message)
+		
+		#print('result 0 ' + result[0] + ' result 1 '+ result[1] + ' result 2 ' + result[2])
+	
+		emit('message', tmp, room = result[1])
 
-    print(users[session['uuid']]['username'] + " Joined room" + room)
-    
-    
-    """
-    #Old chat staff here
-    
-    
-    session['uuid'] = uuid.uuid1()
-    session['username'] = 'New User'
-    print('connected')
-    users[session['uuid']] = {'username': 'New User'}
-    
-    for message in messages:
-        print(message)
-        emit('message', message)
-    """
+#Showing the messages from the searched for user
+@socketio.on('search')
+def on_search(username):
+	
+	name = username
+	
+	results = pg.get_specificChats(name)
+	
+	for result in results:
+		
+		tmp = {'text': result[0], 'room': result[1], 'name': result[2] }
 
-#Leave the chat
-#@socketio.on('leave')#, namespace ='/iss')
-#def on_leave():
-#    if session['uuid'] in users:
- #       del users[session['uuid']]
- #       updateList()
+		divider = {'text': '----------------', 'room': '----------------', 'name': 'Starting Searched Messages'}
+		
+		#emit('message', divider)
 
+		emit('message', tmp)
+	
 
 #Adding messages to the webpage
 @socketio.on('message')#, namespace='/iss')
@@ -90,6 +105,7 @@ def new_message(message):
     
     tmp = {'text': message['text'], 'room': message['room'], 'name': users[session['uuid']]['username']}
     print(tmp)
+    pg.add_chatmessage(message['text'], message['room'], users[session['uuid']]['username'])
     messages.append(tmp)
     #print("Emitting to room " + message['room'])
    # for message in messages:
@@ -132,6 +148,8 @@ def on_disconnect():
     if session['uuid'] in users:
         del users[session['uuid']]
         updateList()
+        
+        
 """
 socketio = SocketIO(app)
 
@@ -292,6 +310,8 @@ def messageboard():
 		return render_template('error.html')
 		
 	return render_template('messageboard.html', posts=results, logged=user)
+
+
 
 #Displaying specific crimes
 @app.route('/search', methods = ['GET', 'POST'])

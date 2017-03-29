@@ -100,9 +100,10 @@
         </div>
        
             <div class="col-md-offset-2 col-md-4 col-sm-6">
-              <h1>Chat About Power Rangers!</h1>
+              <h1>Hero Chat!</h1>
               <p>Name:
               <input type="text" ng-model="name" ng-change="setName()" placeholder="Chat Name" size="14" /></p>
+              
                <div class="scroll" id="msgpane">
                  <p  ng-repeat="msg in messages">
                    <span ng-bind="msg.room"></span>
@@ -117,8 +118,16 @@
                 <p><input type="text" class="span6" ng-model="text" placeholder="Message"></p>
                 <input type="submit" class="span1 btn btn-primary" value="Send" ng-disabled="!text">
                 
-              </div>
+
+              
             </form>
+            
+            <form ng-submit = "searchmsgs()">
+            <p>Search a User's Messages:
+              <input type="text" ng-model = "finduser" placeholder = "Name" size = "14"/></p>
+               <input type="submit" class="span1 btn btn-primary" value="Send" ng-disabled="!finduser">
+               </form>
+               </div>
             </div>
           </div>
         
